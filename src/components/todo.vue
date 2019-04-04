@@ -15,22 +15,13 @@
         >({{ itemsTodo.length }} Pending)</div>
         <!-- <h5>Pending</h5> -->
         <ul class="list-unstyled">
-          <li
+          <app-tododetails
             v-for="(item,i) in itemsTodo"
             :key="`item-${i}`"
-            class="text-left"
-          >
-            <input
-              type="checkbox"
-              :id="i"
-              :value="item.name"
-              :checked="item.checked"
-              @change="item.checked = !item.checked"
-            />
-            <label
-              :for="i"
-            >{{ item.name }}</label>
-          </li>
+            :id="i"
+            :name="item.name"
+            @checkchange="item.checked = !item.checked" >
+          </app-tododetails>
         </ul>
       </div>
       <div class="done" v-if="itemsDone.length>0">
@@ -53,7 +44,11 @@
 </template>
 
 <script>
+import todoDetails from './todoDetails.vue'
 export default {
+  components: {
+    'app-tododetails': todoDetails
+  },
   data () {
     return {
       name: null,
@@ -81,6 +76,7 @@ export default {
   }
 }
 </script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .todoForm {

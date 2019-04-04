@@ -1,44 +1,26 @@
+<template>
+  <div>
 <li
-  v-for="(item,i) in itemsTodo"
-  :key="`item-${i}`"
   class="text-left"
 >
   <input
     type="checkbox"
-    :id="i"
-    :value="item.name"
-    :checked="item.checked"
-    @change="item.checked = !item.checked"
+    :value="name"
+    :checked="checked"
+    :id="id"
+    @change="changeCheckbox"
   />
-  <label
-    :for="i"
-  >{{ item.name }}</label>
+  <label :for="id"
+  >{{ name }}</label>
 </li>
+</div>
+</template>
 <script>
 export default {
-  data () {
-    return {
-      name: null,
-      items: []
-    }
-  },
-  computed: {
-    itemsDone () {
-      return this.items.filter(item => item.checked)
-    },
-    itemsTodo () {
-      return this.items.filter(item => !item.checked)
-    }
-  },
+  props: ['name', 'checked', 'id'],
   methods: {
-    addNewItem () {
-      // console.log(this.item)
-      const newEntry = {
-        name: this.name,
-        checked: false
-      }
-      this.items.push(newEntry)
-      this.name = null
+    changeCheckbox () {
+      this.$emit('checkchange')
     }
   }
 }
